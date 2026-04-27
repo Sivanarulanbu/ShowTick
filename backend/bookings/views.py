@@ -180,17 +180,35 @@ class PaymentVerifyView(generics.GenericAPIView):
                 message=f"Your booking for {booking.show.movie.title} is confirmed. Enjoy your movie!"
             )
 
+            # Generate QR Code
+            import qrcode
+            import io
+            import base64
+            qr = qrcode.QRCode(version=1, box_size=10, border=5)
+            qr.add_data(str(booking.ticket_id))
+            qr.make(fit=True)
+            qr_img = qr.make_image(fill_color="black", back_color="white")
+            qr_buffer = io.BytesIO()
+            qr_img.save(qr_buffer, format="PNG")
+            qr_base64 = base64.b64encode(qr_buffer.getvalue()).decode('utf-8')
+
             # Send Booking Confirmation Email with PDF Attachment (Async)
             seat_numbers = ", ".join([s.seat_number for s in booking.seats.all()])
+            food_orders = booking.food_orders.select_related('food_item').all()
+            
             email_context = {
                 'user_name': booking.user.name,
                 'movie_title': booking.show.movie.title,
                 'theatre_name': booking.show.screen.theatre.name,
+                'theatre_location': booking.show.screen.theatre.location,
+                'theatre_city': booking.show.screen.theatre.city,
                 'screen_number': booking.show.screen.screen_number,
                 'show_time': booking.show.start_time.strftime("%B %d, %Y, %I:%M %p"),
                 'seats': seat_numbers,
                 'total_amount': booking.total_amount,
-                'ticket_id': str(booking.ticket_id)
+                'ticket_id': str(booking.ticket_id),
+                'food_orders': food_orders,
+                'qr_code': qr_base64
             }
 
             # Generate PDF in memory

@@ -36,95 +36,98 @@
             font-weight: bold;
         }
         .movie-banner {
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
             border-bottom: 1px dashed #cccccc;
         }
         .movie-name {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: #000;
             margin: 0;
             text-transform: uppercase;
         }
         .booking-status {
-            font-size: 10px;
+            font-size: 9px;
             color: #e50914;
             margin-top: 5px;
             font-weight: bold;
         }
         .details-section {
-            padding: 20px;
-        }
-        .info-row {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .info-box {
-            display: inline-block;
-            vertical-align: top;
+            padding: 15px 20px;
         }
         .details-table {
             width: 100%;
             border-collapse: collapse;
         }
         .details-table td {
-            padding: 8px 0;
+            padding: 6px 0;
         }
         .label {
-            font-size: 9px;
+            font-size: 8px;
             color: #888;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .value {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #000;
         }
         .seat-highlight {
             background-color: #000;
             color: #fff;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             margin: 10px 0;
         }
         .seat-highlight .label {
             color: #aaa;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .seat-highlight .value {
             color: #fff;
-            font-size: 24px;
+            font-size: 22px;
+        }
+        .food-section {
+            background-color: #fff9f9;
+            border: 1px solid #ffecec;
+            padding: 10px 15px;
+            margin-top: 10px;
+        }
+        .food-item {
+            font-size: 11px;
+            color: #444;
+            margin-bottom: 2px;
         }
         .stub-section {
             background-color: #f9f9f9;
             border-top: 3px dotted #000;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
         }
-        .qr-placeholder {
-            border: 1px solid #ddd;
-            padding: 10px;
-            display: inline-block;
-            margin-bottom: 15px;
-            background: white;
-        }
-        .barcode-text {
-            font-family: monospace;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 5px;
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
         }
         .booking-footer {
-            font-size: 9px;
-            color: #666;
-            margin-top: 10px;
-        }
-        .id-text {
             font-size: 8px;
-            color: #999;
+            color: #666;
             margin-top: 5px;
+        }
+        .policy {
+            font-size: 7px;
+            color: #999;
+            margin-top: 15px;
+            font-style: italic;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .map-link {
+            color: #e50914;
+            text-decoration: none;
+            font-size: 10px;
         }
     </style>
 </head>
@@ -143,23 +146,25 @@
         <div class="details-section">
             <table class="details-table">
                 <tr>
-                    <td width="50%">
+                    <td width="60%">
                         <div class="label">Cinema</div>
                         <div class="value">{{ theatre_name }}</div>
+                        <div style="font-size: 10px; color: #666;">{{ theatre_location }}, {{ theatre_city }}</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ theatre_name|urlencode }}+{{ theatre_city|urlencode }}" class="map-link">View on Map &rarr;</a>
                     </td>
-                    <td width="50%" style="text-align: right;">
+                    <td width="40%" style="text-align: right;">
                         <div class="label">Screen</div>
                         <div class="value">{{ screen_number }}</div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="label">Date</div>
-                        <div class="value">{{ show_time|slice:":14" }}</div>
+                        <div class="label">Date & Time</div>
+                        <div class="value">{{ show_time }}</div>
                     </td>
                     <td style="text-align: right;">
-                        <div class="label">Time</div>
-                        <div class="value">{{ show_time|slice:"15:" }}</div>
+                        <div class="label">Total Paid</div>
+                        <div class="value">INR {{ total_amount }}</div>
                     </td>
                 </tr>
             </table>
@@ -169,30 +174,44 @@
                 <div class="value">{{ seats }}</div>
             </div>
 
-            <table class="details-table">
+            {% if food_orders %}
+            <div class="food-section">
+                <div class="label" style="margin-bottom: 5px; color: #d32f2f;">Pre-ordered Food & Beverages</div>
+                {% for order in food_orders %}
+                <div class="food-item">• {{ order.quantity }}x {{ order.food_item.name }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <table class="details-table" style="margin-top: 10px;">
                 <tr>
                     <td>
                         <div class="label">Guest</div>
                         <div class="value">{{ user_name }}</div>
                     </td>
                     <td style="text-align: right;">
-                        <div class="label">Total Paid</div>
-                        <div class="value">INR {{ total_amount }}</div>
+                        <div class="label">Ref ID</div>
+                        <div class="value" style="font-family: monospace; font-size: 10px;">{{ ticket_id|slice:":13" }}...</div>
                     </td>
                 </tr>
             </table>
         </div>
 
         <div class="stub-section">
-            <div class="label" style="margin-bottom: 10px;">Entry Code</div>
-            <div class="qr-placeholder">
-                <div class="barcode-text">{{ ticket_id|slice:":8"|upper }}</div>
-            </div>
+            <img src="data:image/png;base64,{{ qr_code }}" class="qr-code" />
             <div class="booking-footer">
-                Please present this ticket at the cinema entrance.<br>
-                Enjoy the Show!
+                <strong>SCAN AT CINEMA ENTRANCE</strong><br>
+                Booking ID: {{ ticket_id|slice:":8"|upper }}
             </div>
-            <div class="id-text">REF: {{ ticket_id }}</div>
+        </div>
+
+        <div class="policy">
+            <strong>Cancellation Policy:</strong> Tickets once booked cannot be cancelled or refunded. 
+            Food items are subject to availability. Please arrive 15 minutes before showtime.
+        </div>
+        
+        <div style="text-align: center; padding: 10px; font-size: 8px; color: #ccc;">
+            ShowTick | support@showtick.com | www.showtick.com
         </div>
     </div>
 </body>
