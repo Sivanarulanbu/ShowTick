@@ -1,130 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <style>
         @page {
             size: A4;
-            margin: 0;
+            margin: 2cm;
         }
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 40px;
+            line-height: 1.4;
         }
-        .ticket {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
+        .container {
+            width: 100%;
+            border: 1px solid #e0e0e0;
         }
         .header {
-            background: #e50914;
-            color: white;
-            padding: 30px;
+            background-color: #e50914;
+            color: #ffffff;
+            padding: 20px;
             text-align: center;
         }
         .header h1 {
             margin: 0;
-            font-size: 28px;
-            text-transform: uppercase;
+            font-size: 24px;
             letter-spacing: 2px;
         }
-        .content {
-            padding: 40px;
+        .main-content {
+            padding: 30px;
         }
         .movie-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             color: #000;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
         }
-        .info-grid {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
+        .divider {
+            border-top: 1px solid #eeeeee;
+            margin: 20px 0;
         }
-        .info-grid td {
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
+        .info-table {
+            width: 100%;
+        }
+        .info-table td {
+            padding: 10px 0;
+            vertical-align: top;
         }
         .label {
-            color: #888;
-            font-size: 14px;
+            color: #777777;
+            font-size: 12px;
             text-transform: uppercase;
+            width: 30%;
         }
         .value {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
+            color: #222222;
             text-align: right;
+            width: 70%;
         }
-        .qr-section {
+        .ticket-stub {
+            background-color: #fafafa;
+            border-top: 2px dashed #cccccc;
+            padding: 30px;
             text-align: center;
-            padding: 40px;
-            background: #fafafa;
-            border-top: 2px dashed #ddd;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #aaa;
         }
         .booking-id {
             color: #e50914;
-            font-family: monospace;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .ticket-box {
+            display: inline-block;
+            border: 2px solid #333;
+            padding: 15px 30px;
+            margin: 10px 0;
+        }
+        .ticket-code {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+        .footer {
+            padding: 15px;
+            font-size: 10px;
+            color: #999999;
+            text-align: center;
+            border-top: 1px solid #f0f0f0;
         }
     </style>
 </head>
 <body>
-    <div class="ticket">
+    <div class="container">
         <div class="header">
-            <h1>ShowTick E-Ticket</h1>
+            <h1>SHOWTICK E-TICKET</h1>
         </div>
-        <div class="content">
+        
+        <div class="main-content">
             <div class="movie-title">{{ movie_title }}</div>
+            <div style="text-align: center; color: #666; font-size: 14px;">Confirmed Booking</div>
             
-            <table class="info-grid">
+            <div class="divider"></div>
+            
+            <table class="info-table">
                 <tr>
-                    <td class="label">Theatre</td>
+                    <td class="label">Theatre & Location</td>
                     <td class="value">{{ theatre_name }}</td>
                 </tr>
                 <tr>
                     <td class="label">Screen</td>
-                    <td class="value">{{ screen_number }}</td>
+                    <td class="value">Audi {{ screen_number }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Show Time</td>
+                    <td class="label">Date & Time</td>
                     <td class="value">{{ show_time }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Seats</td>
-                    <td class="value">{{ seats }}</td>
+                    <td class="label">Selected Seats</td>
+                    <td class="value" style="color: #e50914;">{{ seats }}</td>
+                </tr>
+            </table>
+            
+            <div class="divider"></div>
+            
+            <table class="info-table">
+                <tr>
+                    <td class="label">Guest Name</td>
+                    <td class="value">{{ user_name }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Amount Paid</td>
-                    <td class="value">₹{{ total_amount }}</td>
-                </tr>
-                <tr>
-                    <td class="label">Booking ID</td>
-                    <td class="value booking-id">#{{ ticket_id }}</td>
+                    <td class="label">Payment Summary</td>
+                    <td class="value">₹{{ total_amount }} (Paid)</td>
                 </tr>
             </table>
         </div>
-        <div class="qr-section">
-            <p style="margin-bottom: 10px; color: #666;">Scan at the entrance</p>
-            <div style="font-size: 24px; font-weight: bold; border: 2px solid #000; display: inline-block; padding: 20px;">
-                TICKET: {{ ticket_id|slice:":8" }}
+        
+        <div class="ticket-stub">
+            <div class="booking-id">BOOKING ID: #{{ ticket_id }}</div>
+            <p style="font-size: 12px; color: #666; margin-bottom: 5px;">Present this code at the cinema entrance</p>
+            <div class="ticket-box">
+                <div class="ticket-code">{{ ticket_id|slice:":8"|upper }}</div>
             </div>
-            <p style="margin-top: 20px; font-size: 14px; color: #888;">Name: {{ user_name }}</p>
+            <div style="margin-top: 15px; font-size: 11px; color: #888;">
+                This is a computer generated ticket. No signature required.
+            </div>
         </div>
+        
         <div class="footer">
-            Thank you for booking with ShowTick! Please arrive 15 minutes before showtime.
+            Thank you for choosing ShowTick! | support@showtick.com | Enjoy your movie!
         </div>
     </div>
 </body>
