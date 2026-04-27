@@ -28,7 +28,7 @@ class ShowViewSet(viewsets.ModelViewSet):
         return [IsManagerOrAdminRole()]
 
     def get_queryset(self):
-        queryset = Show.objects.all()
+        queryset = Show.objects.select_related('movie', 'screen', 'screen__theatre').all()
         movie = self.request.query_params.get('movie', None)
         city = self.request.query_params.get('city', None)
         if movie is not None:
@@ -258,7 +258,7 @@ class BookingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsManagerOrAdminRole]
 
     def get_queryset(self):
-        return Booking.objects.all().order_by('-created_at')
+        return Booking.objects.select_related('user', 'show', 'show__movie', 'show__screen', 'show__screen__theatre').prefetch_related('seats', 'food_orders', 'food_orders__food_item').all().order_by('-created_at')
 
 class ManagerStatsView(generics.GenericAPIView):
     permission_classes = [IsManagerOrAdminRole]

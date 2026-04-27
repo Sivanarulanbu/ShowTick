@@ -64,6 +64,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Security Headers for Production
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+CSP_DEFAULT_SRC = ("'self'",) # Requires django-csp for full implementation
+REFERRER_POLICY = 'same-origin'
+
+# Session and CSRF Security
+# Only enable these if using HTTPS
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
