@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Failed</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #121212; font-family: Arial, sans-serif;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #121212;">
+        <tr>
+            <td align="center" style="padding: 60px 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="550" style="background-color: #1e1e1e; border-radius: 12px; overflow: hidden; border: 1px solid #441111;">
+                    <!-- Alert Header -->
+                    <tr>
+                        <td align="center" style="padding: 40px 40px 20px 40px; background-color: #2a1515;">
+                            <div style="background-color: #ff3333; width: 60px; height: 60px; border-radius: 50%; display: inline-block; line-height: 60px; text-align: center; color: #ffffff; font-size: 30px;">!</div>
+                            <h2 style="margin: 20px 0 0 0; color: #ff5555; font-size: 22px; text-transform: uppercase;">Payment Failed</h2>
+                        </td>
+                    </tr>
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px; text-align: center;">
+                            <p style="margin: 0 0 20px 0; color: #ffffff; font-size: 18px;">Oops! Something went wrong.</p>
+                            <p style="margin: 0 0 30px 0; color: #aaaaaa; font-size: 16px; line-height: 1.6;">We were unable to process your payment for <strong style="color: #ffffff;">{{movie_name}}</strong>. Your seat selection has been released. Don't worry, no money was deducted from your account.</p>
+                            
+                            <!-- Retry Button -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <a href="#" style="background-color: #e50914; color: #ffffff; padding: 16px 36px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; display: inline-block;">Try Again</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin: 30px 0 0 0; color: #888888; font-size: 14px;">Reference ID: <span style="color: #ffffff;">#{{booking_id}}</span></p>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px; background-color: #181818; text-align: center; border-top: 1px solid #333333;">
+                            <p style="margin: 0; color: #555555; font-size: 12px;">ShowTick Support: <a href="mailto:support@showtick.com" style="color: #e50914; text-decoration: none;">support@showtick.com</a></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

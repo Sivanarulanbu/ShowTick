@@ -1,0 +1,315 @@
+.ticket-detail-page {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    max-width: 800px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.ticket-visual-wrapper {
+    position: relative;
+}
+
+.ticket-container {
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ticket-header-modern {
+    background: linear-gradient(135deg, var(--primary), #e53935);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.ticket-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+.brand-text h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.brand-text span {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.booking-status-tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ticket-body {
+    padding: 2.5rem;
+}
+
+.movie-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+}
+
+.movie-title-section .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+.movie-title-section h2 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    line-height: 1.2;
+}
+
+.genre-pill {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.qr-box img {
+    width: 120px;
+    height: 120px;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.info-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.info-group span {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.user-section {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-section label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.user-section p {
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+.mono {
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: var(--primary);
+}
+
+.ticket-stub-divider {
+    position: relative;
+    height: 30px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.perforation {
+    width: 100%;
+    border-top: 2px dashed rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.ticket-stub-divider::before,
+.ticket-stub-divider::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #0a0a0b; /* Match body background */
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.ticket-stub-divider::before {
+    left: -15px;
+}
+
+.ticket-stub-divider::after {
+    right: -15px;
+}
+
+.ticket-footer-modern {
+    padding: 1.5rem 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-tag label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.price-tag h3 {
+    color: var(--success);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.btn-print {
+    background: white;
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-print:hover {
+    transform: translateY(-2px);
+}
+
+/* Print Specific Styles */
+.print-only-section {
+    display: none;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-only-section, .print-only-section * {
+        visibility: visible;
+    }
+    .print-only-section {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: black;
+        background: white;
+        padding: 40px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .print-header {
+        text-align: center;
+        border-bottom: 2px solid red;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .print-header h1 {
+        color: red;
+        margin: 0;
+        font-size: 24pt;
+    }
+    .print-qr {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .print-qr img {
+        width: 150pt;
+    }
+    .print-details table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .print-details td {
+        padding: 12pt;
+        border-bottom: 1pt solid #eee;
+        font-size: 12pt;
+    }
+    .print-details td:first-child {
+        font-weight: bold;
+        width: 30%;
+        color: #666;
+    }
+    .print-footer {
+        margin-top: 40px;
+        text-align: center;
+        font-style: italic;
+        color: #888;
+        border-top: 1pt dashed #ccc;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ticket-body {
+        padding: 1.5rem;
+    }
+    .movie-banner {
+        flex-direction: column-reverse;
+        gap: 1.5rem;
+    }
+    .movie-title-section h2 {
+        font-size: 1.8rem;
+    }
+    .ticket-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}

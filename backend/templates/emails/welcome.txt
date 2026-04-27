@@ -1,0 +1,8 @@
+Hi {{ user_name }},
+
+Thank you for joining ShowTick! We're thrilled to have you on board.
+Get ready to experience the best movie booking platform with seamless seat selection and amazing deals.
+Start exploring the latest blockbusters and book your favorite shows today!
+
+Best,
+ShowTick Team

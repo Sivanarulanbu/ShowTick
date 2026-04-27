@@ -1,0 +1,81 @@
+.manager-dashboard {
+  /* Shares some styles from AdminDashboard if needed, or specific ones */
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.manager-header h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 20px rgba(251, 133, 0, 0.2);
+}
+
+.manager-badge {
+  background: rgba(255, 183, 3, 0.1);
+  color: #ffb703;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 183, 3, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-tab.active.manager::after {
+  background: linear-gradient(90deg, #ffb703, #fb8500);
+  box-shadow: 0 -2px 15px rgba(251, 133, 0, 0.6);
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-3px);
+}
+
+.metric-card .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.metric-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.booking-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-confirmed { background: rgba(76, 175, 80, 0.15); color: #4caf50; }
+.status-pending { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+.status-failed { background: rgba(244, 67, 54, 0.15); color: #f44336; }

@@ -1,0 +1,15 @@
+Hi {{ user_name }},
+
+Your tickets are locked in. Here are your booking details:
+
+Movie: {{ movie_title }}
+Theatre: {{ theatre_name }} - Screen {{ screen_number }}
+Time: {{ show_time }}
+Seats: {{ seats }}
+Ticket ID: #{{ ticket_id }}
+Amount Paid: ₹{{ total_amount }}
+
+Your e-ticket is attached to this email. Please show the QR code at the entrance.
+
+Best,
+ShowTick Team

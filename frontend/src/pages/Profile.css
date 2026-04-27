@@ -1,0 +1,234 @@
+.auth-page, .profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 2rem 1rem;
+}
+
+.auth-card, .profile-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem;
+  border-radius: 20px;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  flex: 1;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.form-group input {
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.auth-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--warning));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 8px 16px rgba(244, 63, 94, 0.3);
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-box {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.stat-box svg {
+  margin-bottom: 0.5rem;
+}
+
+.stat-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-box p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.booking-history { margin-top: 2rem; }
+.history-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.history-card { padding: 1rem; border-radius: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); }
+.ticket-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+.ticket-body { font-size: 0.9rem; color: var(--text-muted); }
+.ticket-body p { margin-bottom: 0.25rem; }
+.status-badge { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+.status-confirmed { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+.status-failed { background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid #f43f5e; }
+.status-initiated { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
+
+.status-container { display: flex; align-items: center; gap: 0.5rem; }
+
+.btn-outline-small {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+.btn-outline-small:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--text-muted);
+}
+.watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.watchlist-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.watchlist-card:hover {
+    transform: translateY(-5px);
+}
+
+.watchlist-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.watchlist-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.profile-section {
+    margin-top: 2.5rem;
+}
+
+/* Auth Select Fix */
+.auth-select {
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-family: inherit;
+  transition: all 0.2s;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+}
+
+.auth-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.auth-select option {
+  background-color: #0f172a; /* Explicit dark background for cross-browser visibility */
+  color: white;
+  padding: 10px;
+}
