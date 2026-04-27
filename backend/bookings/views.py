@@ -194,7 +194,14 @@ class PaymentVerifyView(generics.GenericAPIView):
 
             # Send Booking Confirmation Email with PDF Attachment (Async)
             seat_numbers = ", ".join([s.seat_number for s in booking.seats.all()])
-            food_orders = booking.food_orders.select_related('food_item').all()
+            
+            # Serialize food orders for Celery context (must be JSON serializable)
+            food_list = []
+            for order in booking.food_orders.select_related('food_item').all():
+                food_list.append({
+                    'name': order.food_item.name,
+                    'quantity': order.quantity
+                })
             
             email_context = {
                 'user_name': booking.user.name,
@@ -205,9 +212,9 @@ class PaymentVerifyView(generics.GenericAPIView):
                 'screen_number': booking.show.screen.screen_number,
                 'show_time': booking.show.start_time.strftime("%B %d, %Y, %I:%M %p"),
                 'seats': seat_numbers,
-                'total_amount': booking.total_amount,
+                'total_amount': float(booking.total_amount), # Convert Decimal to float for serialization
                 'ticket_id': str(booking.ticket_id),
-                'food_orders': food_orders,
+                'food_orders': food_list,
                 'qr_code': qr_base64
             }
 

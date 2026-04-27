@@ -177,8 +177,8 @@
             {% if food_orders %}
             <div class="food-section">
                 <div class="label" style="margin-bottom: 5px; color: #d32f2f;">Pre-ordered Food & Beverages</div>
-                {% for order in food_orders %}
-                <div class="food-item">• {{ order.quantity }}x {{ order.food_item.name }}</div>
+                {% for item in food_orders %}
+                <div class="food-item">• {{ item.quantity }}x {{ item.name }}</div>
                 {% endfor %}
             </div>
             {% endif %}
