@@ -156,7 +156,7 @@ const ManagerDashboard = () => {
               </div>
               <div style={{ textAlign: 'right' }}>
                 <span className="status-confirmed">CONFIRMED</span>
-                <p>₹{act.total_amount}</p>
+                <p className="price-val-bms">₹{act.total_amount}</p>
               </div>
             </div>
           ))}
