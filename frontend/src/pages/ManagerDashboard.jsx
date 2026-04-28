@@ -175,36 +175,50 @@ const ManagerDashboard = () => {
       </div>
 
       {showAddShow && (
-        <div className="form-panel glass" style={{ marginBottom: '2rem' }}>
-          <h4><MonitorPlay size={18} /> {editingShow ? 'Edit Show' : 'New Show'}</h4>
-          <form onSubmit={handleSaveShow} className="form-grid">
-            <div className="form-group">
-              <label>Movie</label>
-              <select value={newShow.movie} onChange={e => setNewShow({...newShow, movie: e.target.value})} required className="form-control">
-                <option value="">Select Movie</option>
-                {moviesList.map(m => <option key={m.id} value={m.id} style={{color: 'black'}}>{m.title}</option>)}
-              </select>
+        <div className="form-panel glass animate-fade-in" style={{ marginBottom: '2.5rem', padding: '2rem' }}>
+          <div className="form-header-row">
+            <h4><MonitorPlay size={20} className="text-primary" /> {editingShow ? 'Edit Scheduled Show' : 'Schedule New Show'}</h4>
+            <p className="form-subtitle">Fill in the details to schedule a movie showtime for your theatre.</p>
+          </div>
+          <form onSubmit={handleSaveShow} className="premium-form">
+            <div className="form-row-three">
+              <div className="form-group">
+                <label>Movie</label>
+                <div className="input-with-icon">
+                  <select value={newShow.movie} onChange={e => setNewShow({...newShow, movie: e.target.value})} required className="form-control-premium">
+                    <option value="">Select Movie</option>
+                    {moviesList.map(m => <option key={m.id} value={m.id} style={{color: '#000'}}>{m.title}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Screen</label>
+                <div className="input-with-icon">
+                  <select value={newShow.screen} onChange={e => setNewShow({...newShow, screen: e.target.value})} required className="form-control-premium">
+                    <option value="">Select Screen</option>
+                    {screensList.map(s => (
+                      <option key={s.id} value={s.id} style={{color: '#000'}}>
+                        {theatresList.find(t => t.id === s.theatre)?.name} - Screen {s.screen_number}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Start Time</label>
+                <input type="datetime-local" value={newShow.start_time} onChange={e => setNewShow({...newShow, start_time: e.target.value})} required className="form-control-premium" />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Screen</label>
-              <select value={newShow.screen} onChange={e => setNewShow({...newShow, screen: e.target.value})} required className="form-control">
-                <option value="">Select Screen</option>
-                {screensList.map(s => (
-                  <option key={s.id} value={s.id} style={{color: 'black'}}>
-                    {theatresList.find(t => t.id === s.theatre)?.name} - Screen {s.screen_number}
-                  </option>
-                ))}
-              </select>
+            
+            <div className="form-actions-row">
+              <div className="form-group price-input-group">
+                <label>Base Price (₹)</label>
+                <input type="number" placeholder="250" value={newShow.price} onChange={e => setNewShow({...newShow, price: e.target.value})} required className="form-control-premium" />
+              </div>
+              <button type="submit" className="btn-save-premium">
+                <ShieldCheck size={18} /> {editingShow ? 'Update Show' : 'Save Show'}
+              </button>
             </div>
-            <div className="form-group">
-              <label>Start Time</label>
-              <input type="datetime-local" value={newShow.start_time} onChange={e => setNewShow({...newShow, start_time: e.target.value})} required className="form-control" />
-            </div>
-            <div className="form-group">
-              <label>Price (₹)</label>
-              <input type="number" value={newShow.price} onChange={e => setNewShow({...newShow, price: e.target.value})} required className="form-control" />
-            </div>
-            <button type="submit" className="btn-primary full-width">Save Show</button>
           </form>
         </div>
       )}
