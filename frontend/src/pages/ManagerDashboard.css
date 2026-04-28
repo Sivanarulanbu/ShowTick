@@ -71,6 +71,7 @@
 .booking-status {
   text-transform: uppercase;
   display: inline-block;
+  margin-bottom: 0.5rem;
 }
 
 .status-confirmed { 
