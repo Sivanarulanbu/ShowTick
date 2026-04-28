@@ -101,33 +101,41 @@ const SeatSelection = () => {
              });
 
              return (
-               <div key={rowStr} className="seat-row-group">
-                 <div className="row-label">{rowStr}</div>
-                 <div className="row-seats">
-                   {rowSeats.map(seat => {
-                     const isSelected = selectedSeats.some(s => s.id === seat.id);
-                     const cName = `seat ${!seat.is_available ? 'booked' : isSelected ? 'selected' : 'available'} ${seat.seat_type === 'VIP' ? 'vip' : ''}`;
-                     
-                     return (
-                       <div 
-                         key={seat.id} 
-                         className={cName}
-                         onClick={() => toggleSeat(seat)}
-                         title={`${seat.seat_number} - ${seat.seat_type}`}
-                       >
-                         <span className="seat-number-label">{seat.seat_number.replace(rowStr, '')}</span>
-                       </div>
-                     );
-                   })}
+               <React.Fragment key={rowStr}>
+                 {/* Mocked Price Category Headers */}
+                 {rowStr === 'A' && <div className="price-category-label">₹180 ELITE</div>}
+                 {rowStr === 'N' && <div className="price-category-label divider">₹180 ELITE</div>}
+                 {rowStr === 'R' && <div className="price-category-label divider">₹120 NORMAL</div>}
+                 {rowStr === 'V' && <div className="price-category-label divider">₹60 PREMIUM</div>}
+
+                 <div className="seat-row-group">
+                   <div className="row-label">{rowStr}</div>
+                   <div className="row-seats">
+                     {rowSeats.map(seat => {
+                       const isSelected = selectedSeats.some(s => s.id === seat.id);
+                       const cName = `seat ${!seat.is_available ? 'booked' : isSelected ? 'selected' : 'available'} ${seat.seat_type === 'VIP' ? 'vip' : ''}`;
+                       
+                       return (
+                         <div 
+                           key={seat.id} 
+                           className={cName}
+                           onClick={() => toggleSeat(seat)}
+                           title={`${seat.seat_number} - ${seat.seat_type}`}
+                         >
+                           <span className="seat-number-label">{seat.seat_number.replace(rowStr, '')}</span>
+                         </div>
+                       );
+                     })}
+                   </div>
                  </div>
-               </div>
+               </React.Fragment>
              );
           })}
         </div>
 
         <div className="screen-indicator">
            <div className="screen-bar"></div>
-           <p>All eyes this way</p>
+           <p>All eyes this way please</p>
         </div>
 
         <div className="seat-legend-bms">
