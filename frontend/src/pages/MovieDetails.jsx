@@ -152,25 +152,35 @@ const MovieDetails = () => {
               <p>No shows available currently.</p>
             </div>
           ) : (
-            <div className="shows-list">
-              {shows.map(show => (
-                <div key={show.id} className="show-card glass">
-                  <div className="show-info">
-                    <div className="theatre-details">
-                      <MapPin size={16} className="text-primary" />
-                      <div>
-                        <h4>{show.screen?.theatre?.name || "Theatre Not Available"}</h4>
-                        <p>{show.screen?.theatre?.city || ""}</p>
+            <div className="shows-list-bms">
+              {Object.entries(
+                shows.reduce((acc, show) => {
+                  const key = `${show.screen?.theatre?.name} - ${show.screen?.theatre?.city}`;
+                  if (!acc[key]) acc[key] = [];
+                  acc[key].push(show);
+                  return acc;
+                }, {})
+              ).map(([theatreKey, theatreShows]) => (
+                <div key={theatreKey} className="theatre-row-bms glass">
+                  <div className="theatre-info-side">
+                    <Heart size={16} className="heart-icon" />
+                    <div className="theatre-meta">
+                      <h4>{theatreKey}</h4>
+                      <div className="theatre-tags">
+                        <span><MapPin size={10} /> INFO</span>
+                        <span className="cancellation-tag">Non-cancellable</span>
                       </div>
                     </div>
-                    <div className="time-details" style={{display: 'flex', gap: '1rem', marginTop: '0.8rem', color: 'var(--text-muted)', fontSize: '0.9rem'}}>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem'}}><Calendar size={14}/> {new Date(show.start_time).toLocaleDateString()}</div>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem'}}><Clock size={14}/> {new Date(show.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-                    </div>
                   </div>
-                  <div className="show-actions">
-                    <div className="price-tag">₹{show.price}</div>
-                    <Link to={`/book/${show.id}`} className="btn-primary-small">Book Seats</Link>
+                  <div className="showtimes-grid-bms">
+                    {theatreShows.map(show => (
+                      <Link key={show.id} to={`/book/${show.id}`} className="showtime-btn-bms">
+                        <div className="time-val">
+                          {new Date(show.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                        <div className="format-val">4K DOLBY 7.1</div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               ))}

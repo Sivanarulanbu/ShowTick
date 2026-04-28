@@ -7,6 +7,7 @@ const SeatSelection = () => {
   const { showId } = useParams();
   const navigate = useNavigate();
   const [seats, setSeats] = useState([]);
+  const [show, setShow] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
@@ -14,14 +15,14 @@ const SeatSelection = () => {
   useEffect(() => {
     if (timeLeft <= 0) {
       alert("Session expired. Please start again.");
-      navigate(`/movie/${showId}`); // Ideally redirect back to details
+      navigate(-1);
       return;
     }
     const timer = setInterval(() => {
       setTimeLeft(prev => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, [timeLeft, navigate]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -30,19 +31,21 @@ const SeatSelection = () => {
   };
 
   useEffect(() => {
-    const fetchSeats = async () => {
+    const fetchData = async () => {
       try {
-        const res = await api.get(`bookings/seats/${showId}/`);
-        if (res.data) {
-          setSeats(res.data);
-        }
+        const [seatsRes, showRes] = await Promise.all([
+          api.get(`bookings/seats/${showId}/`),
+          api.get(`bookings/shows/${showId}/`)
+        ]);
+        setSeats(seatsRes.data);
+        setShow(showRes.data);
       } catch (err) {
-        console.error("Failed to fetch seats", err);
+        console.error("Failed to fetch selection data", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchSeats();
+    fetchData();
   }, [showId]);
 
   const toggleSeat = (seat) => {
@@ -58,64 +61,85 @@ const SeatSelection = () => {
 
   const handleCheckout = () => {
     if (selectedSeats.length === 0) return;
-    // Pass selected seats via local storage or state management. Using sessionStorage for simplicity.
     sessionStorage.setItem('booking_data', JSON.stringify({ showId, selectedSeats }));
     navigate('/checkout');
   };
 
-  if (loading) return <div className="container loading"><div className="spinner"></div></div>;
+  if (loading || !show) return <div className="container loading"><div className="spinner"></div></div>;
+
+  const seatsByRow = seats.reduce((acc, seat) => {
+    const rowMatch = seat.seat_number.match(/^[A-Z]+/);
+    const row = rowMatch ? rowMatch[0] : 'Other';
+    if (!acc[row]) acc[row] = [];
+    acc[row].push(seat);
+    return acc;
+  }, {});
 
   return (
-    <div className="seat-selection-page animate-fade-in container">
-      <div className="seat-selection-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>&larr; Back</button>
-        <div className="timer-box glass">
-            <span>Time Left: </span>
-            <span className={`timer-val ${timeLeft < 60 ? 'urgent' : ''}`}>{formatTime(timeLeft)}</span>
+    <div className="seat-selection-page animate-fade-in">
+      <div className="selection-header-bms">
+        <div className="header-top">
+           <button className="back-btn-circle" onClick={() => navigate(-1)}>&larr;</button>
+           <div className="header-info">
+              <h1>{show.movie?.title}</h1>
+              <p>{show.screen?.theatre?.name} | {new Date(show.start_time).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</p>
+           </div>
+           <div className="timer-badge">
+              <span>{formatTime(timeLeft)}</span>
+           </div>
         </div>
       </div>
 
-      <div className="screen-container glass">
-        <div className="screen-curve"></div>
-        <span className="screen-text">All eyes this way</span>
+      <div className="container selection-body">
+        <div className="seats-container">
+          {Object.keys(seatsByRow).sort().map(rowStr => {
+             const rowSeats = seatsByRow[rowStr];
+             rowSeats.sort((a, b) => {
+                 const numA = parseInt(a.seat_number.replace(rowStr, '')) || 0;
+                 const numB = parseInt(b.seat_number.replace(rowStr, '')) || 0;
+                 return numA - numB;
+             });
+
+             return (
+               <div key={rowStr} className="seat-row-group">
+                 <div className="row-label">{rowStr}</div>
+                 <div className="row-seats">
+                   {rowSeats.map(seat => {
+                     const isSelected = selectedSeats.some(s => s.id === seat.id);
+                     const cName = `seat ${!seat.is_available ? 'booked' : isSelected ? 'selected' : 'available'} ${seat.seat_type === 'VIP' ? 'vip' : ''}`;
+                     
+                     return (
+                       <div 
+                         key={seat.id} 
+                         className={cName}
+                         onClick={() => toggleSeat(seat)}
+                         title={`${seat.seat_number} - ${seat.seat_type}`}
+                       >
+                         <span className="seat-number-label">{seat.seat_number.replace(rowStr, '')}</span>
+                       </div>
+                     );
+                   })}
+                 </div>
+               </div>
+             );
+          })}
+        </div>
+
+        <div className="screen-indicator">
+           <div className="screen-bar"></div>
+           <p>All eyes this way</p>
+        </div>
+
+        <div className="seat-legend-bms">
+          <div className="legend-item"><div className="seat available"></div> <span>Available</span></div>
+          <div className="legend-item"><div className="seat selected"></div> <span>Selected</span></div>
+          <div className="legend-item"><div className="seat booked"></div> <span>Sold</span></div>
+        </div>
       </div>
 
-      <div className="seat-legend">
-        <div className="legend-item">
-          <div className="seat available"></div> <span>Available</span>
-        </div>
-        <div className="legend-item">
-          <div className="seat selected"></div> <span>Selected</span>
-        </div>
-        <div className="legend-item">
-          <div className="seat booked"></div> <span>Booked</span>
-        </div>
-      </div>
-
-      <div className="seats-grid">
-        {seats.map(seat => {
-          const isSelected = selectedSeats.some(s => s.id === seat.id);
-          const cName = `seat ${!seat.is_available ? 'booked' : isSelected ? 'selected' : 'available'} ${seat.seat_type === 'VIP' ? 'vip' : ''}`;
-          
-          return (
-            <div 
-              key={seat.id} 
-              className={cName}
-              onClick={() => toggleSeat(seat)}
-              title={`${seat.seat_number} - ${seat.seat_type}`}
-            >
-              <span className="seat-label">{seat.seat_number}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className={`booking-bar glass ${selectedSeats.length > 0 ? 'visible' : ''}`}>
-        <div className="selection-info">
-          <span>{selectedSeats.length} seat(s) selected</span>
-        </div>
-        <button className="btn-primary" onClick={handleCheckout}>
-          Proceed to Checkout
+      <div className={`booking-bar-bms ${selectedSeats.length > 0 ? 'visible' : ''}`}>
+        <button className="pay-button" onClick={handleCheckout}>
+           Pay ₹{selectedSeats.length * (show.price || 250)}
         </button>
       </div>
     </div>
