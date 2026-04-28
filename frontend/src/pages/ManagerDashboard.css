@@ -180,3 +180,9 @@
 .btn-save-premium:active {
   transform: translateY(-1px);
 }
+
+.form-info-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex: 1;
+}

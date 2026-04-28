@@ -268,49 +268,69 @@ const ManagerDashboard = () => {
       </div>
 
       {showBulkSeats && (
-        <div className="form-panel glass" style={{ marginBottom: '2rem' }}>
-          <h4><Grid size={18} /> Bulk Seat Generator</h4>
-          <form onSubmit={handleBulkCreateSeats} className="form-grid">
-            <div className="form-group">
-              <label>Select Screen</label>
-              <select value={bulkSeatData.screen_id} onChange={e => setBulkSeatData({...bulkSeatData, screen_id: e.target.value})} required className="form-control">
-                <option value="">Select Screen</option>
-                {screensList.map(s => <option key={s.id} value={s.id} style={{color: 'black'}}>{theatresList.find(t => t.id === s.theatre)?.name} - S{s.screen_number}</option>)}
-              </select>
+        <div className="form-panel glass animate-fade-in" style={{ marginBottom: '2.5rem', padding: '2rem' }}>
+          <div className="form-header-row">
+            <h4><Grid size={20} className="text-primary" /> Bulk Seat Generator</h4>
+            <p className="form-subtitle">Automatically generate multiple seats for a screen based on rows and columns.</p>
+          </div>
+          <form onSubmit={handleBulkCreateSeats} className="premium-form">
+            <div className="form-row-three">
+              <div className="form-group">
+                <label>Select Screen</label>
+                <select value={bulkSeatData.screen_id} onChange={e => setBulkSeatData({...bulkSeatData, screen_id: e.target.value})} required className="form-control-premium">
+                  <option value="">Select Screen</option>
+                  {screensList.map(s => <option key={s.id} value={s.id} style={{color: '#000'}}>{theatresList.find(t => t.id === s.theatre)?.name} - S{s.screen_number}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Rows (e.g. A,B,C,D)</label>
+                <input type="text" value={bulkSeatData.rows} onChange={e => setBulkSeatData({...bulkSeatData, rows: e.target.value})} placeholder="A,B,C,D" className="form-control-premium" />
+              </div>
+              <div className="form-group">
+                <label>Seats Per Row</label>
+                <input type="number" value={bulkSeatData.seats_per_row} onChange={e => setBulkSeatData({...bulkSeatData, seats_per_row: e.target.value})} className="form-control-premium" />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Rows (comma separated)</label>
-              <input type="text" value={bulkSeatData.rows} onChange={e => setBulkSeatData({...bulkSeatData, rows: e.target.value})} placeholder="A,B,C,D" className="form-control" />
+            <div className="form-actions-row">
+              <p className="form-info-text">This will create {bulkSeatData.rows.split(',').length * bulkSeatData.seats_per_row} seats instantly.</p>
+              <button type="submit" className="btn-save-premium">
+                <Layers size={18} /> Generate Seats
+              </button>
             </div>
-            <div className="form-group">
-              <label>Seats Per Row</label>
-              <input type="number" value={bulkSeatData.seats_per_row} onChange={e => setBulkSeatData({...bulkSeatData, seats_per_row: e.target.value})} className="form-control" />
-            </div>
-            <button type="submit" className="btn-primary full-width">Generate Seats</button>
           </form>
         </div>
       )}
 
       {showAddScreen && (
-        <div className="form-panel glass" style={{ marginBottom: '2rem' }}>
-          <h4><Grid size={18} /> {editingScreen ? 'Edit Screen' : 'New Screen'}</h4>
-          <form onSubmit={handleSaveScreen} className="form-grid">
-            <div className="form-group">
-              <label>Theatre</label>
-              <select value={newScreen.theatre} onChange={e => setNewScreen({...newScreen, theatre: e.target.value})} required className="form-control">
-                <option value="">Select Theatre</option>
-                {theatresList.map(t => <option key={t.id} value={t.id} style={{color: 'black'}}>{t.name}</option>)}
-              </select>
+        <div className="form-panel glass animate-fade-in" style={{ marginBottom: '2.5rem', padding: '2rem' }}>
+          <div className="form-header-row">
+            <h4><Grid size={20} className="text-primary" /> {editingScreen ? 'Edit Screen Details' : 'Register New Screen'}</h4>
+            <p className="form-subtitle">Add a new cinema hall to your theatre location.</p>
+          </div>
+          <form onSubmit={handleSaveScreen} className="premium-form">
+            <div className="form-row-three">
+              <div className="form-group">
+                <label>Theatre</label>
+                <select value={newScreen.theatre} onChange={e => setNewScreen({...newScreen, theatre: e.target.value})} required className="form-control-premium">
+                  <option value="">Select Theatre</option>
+                  {theatresList.map(t => <option key={t.id} value={t.id} style={{color: '#000'}}>{t.name}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Screen Number</label>
+                <input type="text" placeholder="e.g. 1 or IMAX" value={newScreen.screen_number} onChange={e => setNewScreen({...newScreen, screen_number: e.target.value})} required className="form-control-premium" />
+              </div>
+              <div className="form-group">
+                <label>Total Capacity</label>
+                <input type="number" placeholder="200" value={newScreen.total_seats} onChange={e => setNewScreen({...newScreen, total_seats: e.target.value})} required className="form-control-premium" />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Screen Number</label>
-              <input type="text" value={newScreen.screen_number} onChange={e => setNewScreen({...newScreen, screen_number: e.target.value})} required className="form-control" />
+            <div className="form-actions-row">
+              <div style={{ flex: 1 }}></div>
+              <button type="submit" className="btn-save-premium">
+                <ShieldCheck size={18} /> {editingScreen ? 'Update Screen' : 'Save Screen'}
+              </button>
             </div>
-            <div className="form-group">
-              <label>Total Seats Capacity</label>
-              <input type="number" value={newScreen.total_seats} onChange={e => setNewScreen({...newScreen, total_seats: e.target.value})} required className="form-control" />
-            </div>
-            <button type="submit" className="btn-primary full-width">Save Screen</button>
           </form>
         </div>
       )}
