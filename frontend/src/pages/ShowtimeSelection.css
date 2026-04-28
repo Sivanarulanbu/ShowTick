@@ -1,0 +1,212 @@
+.showtime-selection-page {
+    background: #f2f2f2;
+    min-height: 100vh;
+}
+
+.selection-page-header {
+    background: #333545;
+    color: white;
+    padding: 2rem 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.back-link {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.movie-summary h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.meta-tags {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.meta-tags span {
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 0.2rem 0.8rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.date-filter-bar {
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-selector {
+    display: flex;
+}
+
+.date-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.date-item:hover {
+    color: #f84464;
+}
+
+.date-item.active {
+    background: #f84464;
+    color: white;
+    border-bottom-color: #f84464;
+}
+
+.date-item .day { font-size: 0.7rem; font-weight: 600; }
+.date-item .date { font-size: 1.2rem; font-weight: 700; margin: 0.1rem 0; }
+.date-item .month { font-size: 0.7rem; font-weight: 600; }
+
+.filters-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.filter-item {
+    font-size: 0.875rem;
+    color: #333;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+}
+
+.legend-bar {
+    padding: 1rem 0;
+}
+
+.legend-content {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-item .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.available .dot { background: #4abd5d; }
+.fast-filling .dot { background: #ffa439; }
+
+.theatres-list {
+    margin-bottom: 4rem;
+}
+
+.theatre-card-bms {
+    background: white;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e5e5;
+}
+
+.theatre-main-info {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    padding: 1.5rem;
+}
+
+.theatre-name-section {
+    display: flex;
+    gap: 1rem;
+}
+
+.heart-icon {
+    color: #999;
+    cursor: pointer;
+}
+
+.name-box h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.theatre-sub-tags {
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.7rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.theatre-sub-tags .cancellation {
+    color: #ffa439;
+}
+
+.showtimes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.showtime-pill {
+    border: 1px solid #4abd5d;
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    min-width: 100px;
+    transition: background 0.2s;
+}
+
+.showtime-pill:hover {
+    background: rgba(74, 189, 93, 0.1);
+}
+
+.showtime-pill .time {
+    color: #4abd5d;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.showtime-pill .format {
+    font-size: 0.6rem;
+    color: #4abd5d;
+    margin-top: 0.2rem;
+}
+
+.empty-shows {
+    padding: 5rem;
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+}

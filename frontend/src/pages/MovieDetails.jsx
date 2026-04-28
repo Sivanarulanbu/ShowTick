@@ -132,7 +132,7 @@ const MovieDetails = () => {
                 <span className="badge-outline">{movie.language}</span>
             </div>
 
-            <Link to={`/book/${shows[0]?.id || ''}`} className="btn-primary main-book-btn">
+            <Link to={`/buytickets/${id}`} className="btn-primary main-book-btn">
                 Book tickets
             </Link>
           </div>
@@ -146,46 +146,11 @@ const MovieDetails = () => {
           
           <div className="divider" style={{margin: '3rem 0'}}></div>
           
-          <h2>Available Shows</h2>
-          {shows.length === 0 ? (
-            <div className="empty-state glass">
-              <p>No shows available currently.</p>
-            </div>
-          ) : (
-            <div className="shows-list-bms">
-              {Object.entries(
-                shows.reduce((acc, show) => {
-                  const key = `${show.screen?.theatre?.name} - ${show.screen?.theatre?.city}`;
-                  if (!acc[key]) acc[key] = [];
-                  acc[key].push(show);
-                  return acc;
-                }, {})
-              ).map(([theatreKey, theatreShows]) => (
-                <div key={theatreKey} className="theatre-row-bms glass">
-                  <div className="theatre-info-side">
-                    <Heart size={16} className="heart-icon" />
-                    <div className="theatre-meta">
-                      <h4>{theatreKey}</h4>
-                      <div className="theatre-tags">
-                        <span><MapPin size={10} /> INFO</span>
-                        <span className="cancellation-tag">Non-cancellable</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="showtimes-grid-bms">
-                    {theatreShows.map(show => (
-                      <Link key={show.id} to={`/book/${show.id}`} className="showtime-btn-bms">
-                        <div className="time-val">
-                          {new Date(show.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </div>
-                        <div className="format-val">4K DOLBY 7.1</div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="cta-box-bms glass">
+            <h3>Ready for the show?</h3>
+            <p>Pick your preferred theater and showtime to book seats.</p>
+            <Link to={`/buytickets/${id}`} className="btn-primary">Select Showtimes</Link>
+          </div>
         </div>
 
         <div className="reviews-section">

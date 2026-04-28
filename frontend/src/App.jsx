@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import MovieDetails from './pages/MovieDetails';
 import SeatSelection from './pages/SeatSelection';
+import ShowtimeSelection from './pages/ShowtimeSelection';
 import Checkout from './pages/Checkout';
 import Profile from './pages/Profile';
 import TicketDetail from './pages/TicketDetail';
@@ -32,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/buytickets/:movieId" element={<ShowtimeSelection />} />
             <Route path="/book/:showId" element={<SeatSelection />} />
             <Route 
               path="/checkout" 
